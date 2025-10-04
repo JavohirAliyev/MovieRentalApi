@@ -20,8 +20,15 @@ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 ```
 
 * * * * *
+### 2\. Models & DTOs
 
-### 2\. Database & EF Core
+-   `Models/` → define **Movie, Customer, Rental** with relationships.
+
+-   `DTOs/` → define **MovieDto, CustomerDto, RentalDto** (for data transfer, avoiding exposing DB entities directly).
+
+* * * * *
+
+### 3\. Database & EF Core
 
 -   Define `ApplicationDbContext.cs` in `Data/`
 
@@ -36,14 +43,6 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 
 ```
-
-* * * * *
-
-### 3\. Models & DTOs
-
--   `Models/` → define **Movie, Customer, Rental** with relationships.
-
--   `DTOs/` → define **MovieDto, CustomerDto, RentalDto** (for data transfer, avoiding exposing DB entities directly).
 
 * * * * *
 
