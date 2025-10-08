@@ -1,5 +1,4 @@
 namespace MovieRentalApi.Models;
-
 public class Customer
 {
     public int Id { get; set; }
@@ -9,5 +8,4 @@ public class Customer
     public bool IsMale { get; set; }
     public int PhoneNumber { get; set; }
     public string Email { get; set; } = string.Empty!;
-
 }
