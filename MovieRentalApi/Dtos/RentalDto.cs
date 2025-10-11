@@ -5,6 +5,5 @@ namespace MovieRentalApi.Dtos
         public int Id { get; set; }
         public DateTime RentedAt { get; set; } = DateTime.Now;
         public DateTime? ReturnedAt { get; set; }
-    
     }
 }

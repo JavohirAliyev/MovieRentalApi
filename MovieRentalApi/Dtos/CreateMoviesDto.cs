@@ -6,6 +6,5 @@ namespace MovieRentalApi.Dtos
         public string Genre { get; set; } = string.Empty!;
         public DateTime ReleaseDate { get; set; }
         public decimal Price { get; set; } = 0.0m;
-    
     }
 }
