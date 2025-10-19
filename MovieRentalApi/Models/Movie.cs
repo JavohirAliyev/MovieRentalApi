@@ -7,7 +7,7 @@ public class Movie
     public Genre Genre { get; set; }
     public DateTime ReleaseDate { get; set; }
     public decimal Price { get; set; }
+    
     public bool IsDeleted { get; set; } = false;
-
     public List<Rental> Rentals { get; set; } = [];
 }

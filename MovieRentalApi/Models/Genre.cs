@@ -9,5 +9,6 @@ public enum Genre
     Drama = 4,
     Horror = 8,
     SciFi = 16,
-    Documentary = 32
+    Documentary = 32,
+    Genre = 64
 }

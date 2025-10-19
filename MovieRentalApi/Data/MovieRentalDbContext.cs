@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using MovieRentalApi.Dtos;
 using MovieRentalApi.Models;
 
 namespace MovieRentalApi.Data
 {
     public class MovieRentalDbContext(DbContextOptions<MovieRentalDbContext> options) : DbContext(options)
     {
-        DbSet<Movie> Movies { get; set; }
-        DbSet<Customer> Customers { get; set; }
-        DbSet<Rental> Rentals { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
