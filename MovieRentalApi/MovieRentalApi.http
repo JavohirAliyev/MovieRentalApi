@@ -1,6 +1,0 @@
-@MovieRentalApi_HostAddress = http://localhost:5163
-
-GET {{MovieRentalApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

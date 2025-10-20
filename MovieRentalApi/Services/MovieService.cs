@@ -66,7 +66,8 @@ public class MovieService : IMovieService
 			Price = movie.Price
 		};
 	}
-	public async Task<MovieDto> CreateAsync(MovieDto dto)
+
+	public async Task<MovieDto> CreateAsync(CreateMovieDto dto)
 	{
 		var movie = new Movie
 		{
@@ -91,7 +92,8 @@ public class MovieService : IMovieService
 			Price = movie.Price
 		};
 	}
-	public async Task<MovieDto> UpdateAsync(int id, MovieDto dto)
+
+	public async Task<MovieDto> UpdateAsync(int id, UpdateMovieDto dto)
 	{
 		var movie = await _context.Movies.FindAsync(id);
 		if (movie == null) return null!;
