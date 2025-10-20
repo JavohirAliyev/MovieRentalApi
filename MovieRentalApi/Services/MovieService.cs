@@ -2,6 +2,7 @@ using MovieRentalApi.Services.Interfaces;
 using MovieRentalApi.Data;
 using MovieRentalApi.Models;
 using MovieRentalApi.Dtos;
+using Microsoft.EntityFrameworkCore;
 namespace MovieRentalApi.Services;
 
 public class MovieService : IMovieService
@@ -11,9 +12,31 @@ public class MovieService : IMovieService
 	{
 		_context = context!;
 	}
-	public async Task<IEnumerable<MovieDto>> GetAllAsync()
+	public async Task<IEnumerable<MovieDto>> GetAllAsync(
+		string search,
+		int Page,
+		int PageSize
+	)
 	{
-		var movies = _context!.Movies.ToList();
+		var query = _context.Movies.AsNoTracking();
+
+		if (!string.IsNullOrEmpty(search))
+		{
+			query = query.Where(m => m.Title.Contains(search));
+		}
+		var movies = await query
+				.OrderBy(m => m.Title)
+				.Skip((PageSize - 1) * Page)
+				.Take(Page)
+				.Select(m => new Movie
+				{
+					Id = m.Id,
+					Title = m.Title,
+					Genre = m.Genre,
+					ReleaseDate = m.ReleaseDate,
+					Price = m.Price
+				})
+				.ToListAsync();
 
 		return movies.Select(m => new MovieDto
 		{

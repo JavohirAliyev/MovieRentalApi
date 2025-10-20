@@ -2,6 +2,7 @@ using MovieRentalApi.Services.Interfaces;
 using MovieRentalApi.Data;
 using MovieRentalApi.Models;
 using MovieRentalApi.Dtos;
+using Microsoft.EntityFrameworkCore;
 namespace MovieRentalApi.Services;
 
 public class RentalService : IRentalService
@@ -11,16 +12,34 @@ public class RentalService : IRentalService
 	{
 		_context = context!;
 	}
-	public async Task<IEnumerable<RentalDto>> GetAllAsync()
+
+	public async Task<IEnumerable<RentalDto>> GetAllAsync(
+		string search,
+		int Page,
+		int PageSize)
 	{
-		var rentals = _context!.Rentals.ToList();
-		return rentals.Select(r => new RentalDto
+		var query = _context!.Rentals.AsNoTracking();
+		if (!string.IsNullOrEmpty(search))
 		{
-			Id = r.Id,
-			RentedAt = r.RentedAt,
-			ReturnedAt = r.ReturnedAt
-		});
+			query = query.Where(r => r.Id.ToString().Contains(search) ||
+			r.RentedAt.ToString().Contains(search) ||
+			r.ReturnedAt.ToString().Contains(search));
+		}
+		var rental = await query
+			 .OrderBy(r => r.RentedAt)
+			 .Skip((Page - 1) * PageSize)
+			 .Take(PageSize)
+			 .Select(b => new RentalDto
+			 {
+				 Id = b.Id,
+				 RentedAt = b.RentedAt,
+				 ReturnedAt = b.ReturnedAt
+			 })
+			 .ToListAsync();
+
+		return rental;
 	}
+
 	public async Task<RentalDto> GetByIdAsync(int id)
 	{
 		var rental = await _context!.Rentals.FindAsync(id);
@@ -31,6 +50,7 @@ public class RentalService : IRentalService
 			ReturnedAt = rental.ReturnedAt,
 		};
 	}
+
 	public async Task<RentalDto> CreateAsync(RentalDto dto)
 	{
 		var rental = new Rental
@@ -46,6 +66,7 @@ public class RentalService : IRentalService
 			ReturnedAt = rental.ReturnedAt,
 		};
 	}
+
 	public async Task<RentalDto> UpdateAsync(int id, RentalDto dto)
 	{
 		var rental = await _context.Rentals.FindAsync(id);
@@ -57,10 +78,12 @@ public class RentalService : IRentalService
 		await _context.SaveChangesAsync();
 		return new RentalDto
 		{
+			Id = rental.Id,
 			RentedAt = rental.RentedAt,
 			ReturnedAt = rental.ReturnedAt,
 		};
 	}
+
 	public async Task<bool> DeleteAsync(int id)
 	{
 		var Rental = await _context!.Rentals.FindAsync(id);
@@ -70,4 +93,3 @@ public class RentalService : IRentalService
 		return true;
 	}
 }
-
