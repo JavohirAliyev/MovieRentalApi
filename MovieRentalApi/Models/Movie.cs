@@ -8,6 +8,5 @@ public class Movie
     public DateTime ReleaseDate { get; set; }
     public decimal Price { get; set; }
     public bool IsDeleted { get; set; } = false;
-
     public List<Rental> Rentals { get; set; } = [];
 }
