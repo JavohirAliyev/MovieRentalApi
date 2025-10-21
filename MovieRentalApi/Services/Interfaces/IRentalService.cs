@@ -9,7 +9,7 @@ public interface IRentalService
 		int PageSize
 	);
 	Task<RentalDto> GetByIdAsync(int id);
-	Task<RentalDto> CreateAsync(RentalDto dto);
-	Task<RentalDto> UpdateAsync(int id, RentalDto dto);
+	Task<RentalDto> CreateAsync(CreateRentalDto dto);
+	Task<RentalDto> UpdateAsync(int id, UpdateRentalDto dto);
 	Task<bool> DeleteAsync(int id);
 }
