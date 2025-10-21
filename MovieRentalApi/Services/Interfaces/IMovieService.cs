@@ -9,7 +9,7 @@ public interface IMovieService
 		int Page,
 		int PageSize);
 	Task<MovieDto> GetByIdAsync(int id);
-	Task<MovieDto> CreateAsync(MovieDto dto);
-	Task<MovieDto> UpdateAsync(int id, MovieDto dto);
+	Task<MovieDto> CreateAsync(CreateMovieDto dto);
+	Task<MovieDto> UpdateAsync(int id, UpdateMovieDto dto);
 	Task<bool> DeleteAsync(int id);
 }
