@@ -10,5 +10,4 @@ public enum Genre
     Horror = 8,
     SciFi = 16,
     Documentary = 32,
-    Genre = 64
 }
