@@ -44,7 +44,6 @@ public class CustomerService : ICustomerService
 					Email = b.Email
 				})
 				.ToListAsync();
-
 		return customers;
 	}
 

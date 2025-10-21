@@ -23,7 +23,7 @@ public class RentalService : IRentalService
 		{
 			query = query.Where(r => r.Id.ToString().Contains(search) ||
 			r.RentedAt.ToString().Contains(search) ||
-			r.ReturnedAt.ToString().Contains(search));
+			(r.ReturnedAt != null && r.ReturnedAt.Value.ToString().Contains(search)));
 		}
 		var rental = await query
 			 .OrderBy(r => r.RentedAt)
@@ -51,7 +51,7 @@ public class RentalService : IRentalService
 		};
 	}
 
-	public async Task<RentalDto> CreateAsync(RentalDto dto)
+	public async Task<RentalDto> CreateAsync(CreateRentalDto dto)
 	{
 		var rental = new Rental
 		{
@@ -67,7 +67,7 @@ public class RentalService : IRentalService
 		};
 	}
 
-	public async Task<RentalDto> UpdateAsync(int id, RentalDto dto)
+	public async Task<RentalDto> UpdateAsync(int id, UpdateRentalDto dto)
 	{
 		var rental = await _context.Rentals.FindAsync(id);
 		if (rental == null) return null!;

@@ -1,10 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 namespace MovieRentalApi.Dtos
 {
-    public class MovieDto
+    public class CreateMovieDto
     {
-        public int Id { get; set; }
+        [Required]
         public string Title { get; set; } = string.Empty!;
-        public string Genre { get; set; } = string.Empty!;
+        public List<string> Genre { get; set; } = new List<string>();
         public DateTime ReleaseDate { get; set; }
         public decimal Price { get; set; } = 0.0m;
     }
